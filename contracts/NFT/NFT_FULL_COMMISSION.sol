@@ -27,6 +27,7 @@ contract NFT is ERC721Enumerable, Ownable {
   bool public onlyWhitelisted = true;
   address payable commissions = payable(0xde3B22caAaD25e65C839c2A3d852d665669EdD5c);
   address[] public whitelistedAddresses;
+  mapping(address => uint256) public addressMintedBalance;
 
   constructor(
     string memory _name,
@@ -54,13 +55,14 @@ contract NFT is ERC721Enumerable, Ownable {
     if (msg.sender != owner()) {
         if(onlyWhitelisted == true) {
             require(isWhitelisted(msg.sender), "user is not whitelisted");
-            uint256 ownerTokenCount = balanceOf(msg.sender);
-            require(ownerTokenCount < nftPerAddressLimit, "max NFT per address exceeded");
+            uint256 ownerMintedCount = addressMintedBalance[msg.sender];
+            require(ownerMintedCount + _mintAmount <= nftPerAddressLimit, "max NFT per address exceeded");
         }
         require(msg.value >= cost * _mintAmount, "insufficient funds");
     }
 
     for (uint256 i = 1; i <= _mintAmount; i++) {
+      addressMintedBalance[msg.sender]++;
       _safeMint(msg.sender, supply + i);
     }
     
