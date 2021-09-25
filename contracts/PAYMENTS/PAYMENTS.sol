@@ -1,10 +1,10 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 
-// Created by HashLips
+// Amended by HashLips
 /**
     !Disclaimer!
     These contracts have been used to create tutorials,
-    and was created on the for the purpose to teach people
+    and was created for the purpose to teach people
     how to create smart contracts on the blockchain.
     please review this code on your own before using any of
     the following code for production.

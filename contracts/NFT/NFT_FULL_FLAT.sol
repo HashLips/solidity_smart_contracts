@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 
-// Created by HashLips
+// Amended by HashLips
 /**
     !Disclaimer!
     These contracts have been used to create tutorials,
-    and was created on the for the purpose to teach people
+    and was created for the purpose to teach people
     how to create smart contracts on the blockchain.
     please review this code on your own before using any of
     the following code for production.
@@ -1231,13 +1231,6 @@ abstract contract Ownable is Context {
 }
 
 // SPDX-License-Identifier: GPL-3.0
-
-// Created by HashLips
-/**
-    These contracts have been used to create tutorials, 
-    please review them on your own before using any of
-    the following code for production.
-*/
 
 pragma solidity >=0.7.0 <0.9.0;
 
