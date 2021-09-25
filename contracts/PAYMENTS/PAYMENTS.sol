@@ -1,5 +1,18 @@
 // SPDX-License-Identifier: MIT
 
+// Created by HashLips
+/**
+    !Disclaimer!
+    These contracts have been used to create tutorials,
+    and was created on the for the purpose to teach people
+    how to create smart contracts on the blockchain.
+    please review this code on your own before using any of
+    the following code for production.
+    HashLips will not be liable in any way if for the use 
+    of the code. That being said, the code has been tested 
+    to the best of the developers' knowledge to work as intended.
+*/
+
 pragma solidity ^0.8.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/finance/PaymentSplitter.sol";
