@@ -1266,7 +1266,7 @@ contract NFT is ERC721Enumerable, Ownable {
   }
 
   // public
-  function mint(uint256 _mintAmount) public payable {
+  function mint(address _to, uint256 _mintAmount) public payable {
     require(!paused, "the contract is paused");
     uint256 supply = totalSupply();
     require(_mintAmount > 0, "need to mint at least 1 NFT");
@@ -1284,7 +1284,7 @@ contract NFT is ERC721Enumerable, Ownable {
 
     for (uint256 i = 1; i <= _mintAmount; i++) {
       addressMintedBalance[msg.sender]++;
-      _safeMint(msg.sender, supply + i);
+      _safeMint(_to, supply + i);
     }
   }
   
