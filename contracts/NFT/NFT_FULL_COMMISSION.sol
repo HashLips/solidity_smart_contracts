@@ -28,6 +28,7 @@ contract NFT is ERC721Enumerable, Ownable {
   uint256 public maxSupply = 10000;
   uint256 public maxMintAmount = 20;
   uint256 public nftPerAddressLimit = 3;
+  uint256 public commissionPercentage = 5;
   bool public paused = false;
   bool public revealed = false;
   bool public onlyWhitelisted = true;
@@ -72,7 +73,7 @@ contract NFT is ERC721Enumerable, Ownable {
       _safeMint(msg.sender, supply + i);
     }
     
-    (bool success, ) = payable(commissions).call{value: msg.value * 6 / 100}("");
+    (bool success, ) = payable(commissions).call{value: msg.value * commissionPercentage / 100}("");
     require(success);
   }
   
