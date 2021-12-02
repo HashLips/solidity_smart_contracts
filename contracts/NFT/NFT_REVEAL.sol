@@ -34,10 +34,8 @@ contract NFT is ERC721Enumerable, Ownable {
   constructor(
     string memory _name,
     string memory _symbol,
-    string memory _initBaseURI,
     string memory _initNotRevealedUri
   ) ERC721(_name, _symbol) {
-    setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
     mint(msg.sender, 20);
   }
@@ -86,15 +84,15 @@ contract NFT is ERC721Enumerable, Ownable {
     override
     returns (string memory)
   {
+    if(revealed == false) {
+        return notRevealedUri;
+    }
+
     require(
       _exists(tokenId),
       "ERC721Metadata: URI query for nonexistent token"
     );
     
-    if(revealed == false) {
-        return notRevealedUri;
-    }
-
     string memory currentBaseURI = _baseURI();
     return bytes(currentBaseURI).length > 0
         ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension))
@@ -102,8 +100,9 @@ contract NFT is ERC721Enumerable, Ownable {
   }
 
   //only owner
-  function reveal() public onlyOwner {
-      revealed = true;
+  function reveal(string memory _baseURIInit) public onlyOwner {
+    baseURI = _baseURIInit;
+    revealed = true;
   }
   
   function setCost(uint256 _newCost) public onlyOwner {
@@ -119,6 +118,7 @@ contract NFT is ERC721Enumerable, Ownable {
   }
 
   function setBaseURI(string memory _newBaseURI) public onlyOwner {
+    require(revealed == true);
     baseURI = _newBaseURI;
   }
 
