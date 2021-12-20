@@ -21,7 +21,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract NFT is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
-  string public baseURI;
+  string public baseURI = "";
   string public baseExtension = ".json";
   uint256 public cost = 0.05 ether;
   uint256 public maxSupply = 10000;
@@ -34,10 +34,8 @@ contract NFT is ERC721Enumerable, Ownable {
   constructor(
     string memory _name,
     string memory _symbol,
-    string memory _initBaseURI,
     string memory _initNotRevealedUri
   ) ERC721(_name, _symbol) {
-    setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
     mint(msg.sender, 20);
   }
@@ -102,10 +100,12 @@ contract NFT is ERC721Enumerable, Ownable {
   }
 
   //only owner
-  function reveal() public onlyOwner {
-      revealed = true;
+  function reveal(string memory _finalBaseURI) public onlyOwner {
+    require(revealed == false);
+    baseURI = _finalBaseURI;
+    revealed = true;
   }
-  
+
   function setCost(uint256 _newCost) public onlyOwner {
     cost = _newCost;
   }
@@ -116,10 +116,6 @@ contract NFT is ERC721Enumerable, Ownable {
   
   function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
     notRevealedUri = _notRevealedURI;
-  }
-
-  function setBaseURI(string memory _newBaseURI) public onlyOwner {
-    baseURI = _newBaseURI;
   }
 
   function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
